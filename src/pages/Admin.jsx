@@ -117,10 +117,11 @@ export default function Admin() {
   const handleLogout = () => { sessionStorage.removeItem('admin_authed'); setAuthed(false); };
   const [activeSection, setActiveSection] = useState('overview');
 
-  const blankForm = { id: null, name: '', shortName: '', category: 'Sanitary Pads', price: '', originalPrice: '', stock: '', size: '', absorbency: 'Medium', absorbencyLabel: 'Medium Flow', droplets: '3', badge: 'New', description: '', features: '', howToUse: '', ingredients: '', image: '', images: [] };
+  const blankForm = { id: null, name: '', shortName: '', category: 'Sanitary Pads', price: '', originalPrice: '', stock: '', size: '', absorbency: 'Medium', absorbencyLabel: 'Medium Flow', droplets: '3', badge: 'New', description: '', benefits: '', features: '', material: '', fragrance: 'Unscented', howToUse: '', disposalInstructions: '', ingredients: '', sku: '', shelfLife: '', weight: '', dimensions: '', manufacturingDetails: '', image: '', images: [], videos: [] };
   const [productForm, setProductForm] = useState(blankForm);
   const mainImgRef = useRef();
   const galleryImgRef = useRef();
+  const videoRef = useRef();
 
   const set = (field) => (e) => setProductForm(f => ({ ...f, [field]: e.target.value }));
 
@@ -140,6 +141,14 @@ export default function Admin() {
     });
   };
 
+  const handleVideos = (e) => {
+    Array.from(e.target.files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = ev => setProductForm(f => ({ ...f, videos: [...(f.videos || []), { src: ev.target.result, name: file.name }] }));
+      reader.readAsDataURL(file);
+    });
+  };
+
   const summaryCards = useMemo(() => [
     { label: 'Today Orders', value: initialOrders.length || '—', accent: 'from-primary/15 to-primary/5', icon: ShoppingBag },
     { label: 'Revenue', value: initialOrders.length ? `₹${initialOrders.reduce((s, o) => s + o.total, 0)}` : '—', accent: 'from-secondary/15 to-secondary/5', icon: TrendingUp },
@@ -153,10 +162,12 @@ export default function Admin() {
     const payload = {
       ...productForm,
       features: productForm.features ? productForm.features.split('\n').filter(Boolean) : [],
+      benefits: productForm.benefits ? productForm.benefits.split('\n').filter(Boolean) : [],
       price: Number(productForm.price) || 0,
       originalPrice: Number(productForm.originalPrice) || Number(productForm.price) || 0,
       stock: Number(productForm.stock) || 0,
       droplets: Number(productForm.droplets) || 3,
+      videos: productForm.videos || [],
     };
     if (productForm.id) {
       updateProduct(productForm.id, payload);
@@ -167,7 +178,7 @@ export default function Admin() {
   };
 
   const handleEditProduct = (p) => {
-    setProductForm({ ...blankForm, ...p, features: Array.isArray(p.features) ? p.features.join('\n') : (p.features || ''), images: p.images || [] });
+    setProductForm({ ...blankForm, ...p, features: Array.isArray(p.features) ? p.features.join('\n') : (p.features || ''), benefits: Array.isArray(p.benefits) ? p.benefits.join('\n') : (p.benefits || ''), images: p.images || [], videos: p.videos || [] });
     setActiveSection('products');
   };
 
@@ -246,22 +257,77 @@ export default function Admin() {
                   </label>
                 </div>
 
+                {/* Description & Benefits */}
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 pt-2">Description & Benefits</p>
                 <label className="text-sm font-medium text-slate-600 block">
-                  Description
+                  Product Description
                   <textarea rows={3} value={productForm.description} onChange={set('description')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm resize-none" placeholder="Product description..." />
+                </label>
+                <label className="text-sm font-medium text-slate-600 block">
+                  Product Benefits (one per line)
+                  <textarea rows={3} value={productForm.benefits} onChange={set('benefits')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm resize-none" placeholder="Benefit 1&#10;Benefit 2" />
                 </label>
                 <label className="text-sm font-medium text-slate-600 block">
                   Features (one per line)
                   <textarea rows={3} value={productForm.features} onChange={set('features')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm resize-none" placeholder="Feature 1&#10;Feature 2&#10;Feature 3" />
                 </label>
+
+                {/* Material & Composition */}
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 pt-2">Material & Composition</p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="text-sm font-medium text-slate-600">
+                    Material
+                    <input value={productForm.material} onChange={set('material')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm" placeholder="100% Organic Cotton" />
+                  </label>
+                  <label className="text-sm font-medium text-slate-600">
+                    Fragrance
+                    <select value={productForm.fragrance} onChange={set('fragrance')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm">
+                      <option>Unscented</option>
+                      <option>Lightly Scented</option>
+                      <option>Scented</option>
+                    </select>
+                  </label>
+                </div>
+                <label className="text-sm font-medium text-slate-600 block">
+                  Ingredients / Materials
+                  <textarea rows={2} value={productForm.ingredients} onChange={set('ingredients')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm resize-none" placeholder="Organic cotton, SAP core, ..." />
+                </label>
+
+                {/* Usage & Disposal */}
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 pt-2">Usage & Disposal</p>
                 <label className="text-sm font-medium text-slate-600 block">
                   How To Use
                   <textarea rows={2} value={productForm.howToUse} onChange={set('howToUse')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm resize-none" placeholder="Usage instructions..." />
                 </label>
                 <label className="text-sm font-medium text-slate-600 block">
-                  Ingredients / Materials
-                  <textarea rows={2} value={productForm.ingredients} onChange={set('ingredients')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm resize-none" placeholder="Organic cotton, ..." />
+                  Disposal Instructions
+                  <textarea rows={2} value={productForm.disposalInstructions} onChange={set('disposalInstructions')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm resize-none" placeholder="Wrap in paper and dispose in bin. Do not flush." />
                 </label>
+
+                {/* Manufacturing & Logistics */}
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 pt-2">Manufacturing & Logistics</p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <label className="text-sm font-medium text-slate-600">
+                    SKU / Product Code
+                    <input value={productForm.sku} onChange={set('sku')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm" placeholder="HC-REG-240" />
+                  </label>
+                  <label className="text-sm font-medium text-slate-600">
+                    Shelf Life / Expiry
+                    <input value={productForm.shelfLife} onChange={set('shelfLife')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm" placeholder="3 years from manufacture" />
+                  </label>
+                  <label className="text-sm font-medium text-slate-600">
+                    Weight (g)
+                    <input value={productForm.weight} onChange={set('weight')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm" placeholder="120" />
+                  </label>
+                  <label className="text-sm font-medium text-slate-600">
+                    Dimensions (cm)
+                    <input value={productForm.dimensions} onChange={set('dimensions')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm" placeholder="24 x 8 x 3" />
+                  </label>
+                  <label className="text-sm font-medium text-slate-600 col-span-2">
+                    Manufacturing Details
+                    <input value={productForm.manufacturingDetails} onChange={set('manufacturingDetails')} className="mt-1 w-full rounded-xl border border-rose-100 px-3 py-2 text-sm" placeholder="Made in India. ISO 9001 certified facility." />
+                  </label>
+                </div>
 
                 {/* Main Image Upload */}
                 <div className="flex flex-col gap-2">
@@ -275,9 +341,12 @@ export default function Admin() {
                   </div>
                 </div>
 
-                {/* Gallery Images Upload */}
+                {/* Media */}
+                <p className="text-xs font-bold uppercase tracking-widest text-slate-400 pt-2">Media</p>
+
+                {/* Gallery Images */}
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm font-medium text-slate-600">Gallery Images (shown in product detail slider)</p>
+                  <p className="text-sm font-medium text-slate-600">Gallery Images</p>
                   <div className="flex flex-wrap gap-2 items-center">
                     {productForm.images.map((src, i) => (
                       <div key={i} className="relative">
@@ -285,10 +354,24 @@ export default function Admin() {
                         <button type="button" onClick={() => setProductForm(f => ({ ...f, images: f.images.filter((_, idx) => idx !== i) }))} className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-[10px] flex items-center justify-center">×</button>
                       </div>
                     ))}
-                    <button type="button" onClick={() => galleryImgRef.current.click()} className="rounded-xl border border-dashed border-rose-200 px-4 py-2 text-xs font-semibold text-primary hover:bg-rose-50">
-                      + Add Gallery Images
-                    </button>
+                    <button type="button" onClick={() => galleryImgRef.current.click()} className="rounded-xl border border-dashed border-rose-200 px-4 py-2 text-xs font-semibold text-primary hover:bg-rose-50">+ Add Images</button>
                     <input ref={galleryImgRef} type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryImgs} />
+                  </div>
+                </div>
+
+                {/* Product Videos */}
+                <div className="flex flex-col gap-2">
+                  <p className="text-sm font-medium text-slate-600">Product Videos <span className="text-xs font-normal text-slate-400">(optional)</span></p>
+                  <div className="flex flex-wrap gap-2 items-center">
+                    {(productForm.videos || []).map((v, i) => (
+                      <div key={i} className="relative">
+                        <video src={v.src} className="w-20 h-14 rounded-xl object-cover border border-rose-100" />
+                        <p className="text-[10px] text-slate-400 truncate max-w-[80px] mt-0.5">{v.name}</p>
+                        <button type="button" onClick={() => setProductForm(f => ({ ...f, videos: f.videos.filter((_, idx) => idx !== i) }))} className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-[10px] flex items-center justify-center">×</button>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => videoRef.current.click()} className="rounded-xl border border-dashed border-rose-200 px-4 py-2 text-xs font-semibold text-primary hover:bg-rose-50">+ Add Videos</button>
+                    <input ref={videoRef} type="file" accept="video/*" multiple className="hidden" onChange={handleVideos} />
                   </div>
                 </div>
 

@@ -300,9 +300,24 @@ export default function ProductDetail() {
             </button>
           </div>
 
-        </div>
+          {/* Product Videos — shown below thumbnails if available */}
+          {product.videos && product.videos.length > 0 && (
+            <div className="flex flex-col gap-3 mt-2">
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Product Videos</p>
+              <div className="flex flex-col gap-3">
+                {product.videos.map((v, i) => (
+                  <video
+                    key={i}
+                    src={v.src}
+                    controls
+                    className="w-full rounded-2xl border border-rose-100 shadow-sm"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
-        {/* Right: Details Column */}
+        </div>
         <div className="lg:col-span-6 flex flex-col gap-6 text-left">
           
           <div className="flex flex-col gap-2">
@@ -652,7 +667,7 @@ export default function ProductDetail() {
       <section className="border-t border-rose-100 pt-10 pb-10 text-left">
         <div className="flex flex-col gap-6">
             <div className="flex border-b border-rose-50 overflow-x-auto scrollbar-none gap-8">
-              {['details', 'features', 'how-to-use', 'ingredients', 'faq'].map((tab) => (
+              {['details', 'benefits', 'features', 'how-to-use', 'ingredients', 'disposal', 'product-info', 'faq'].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
@@ -662,7 +677,7 @@ export default function ProductDetail() {
                       : 'border-transparent text-slate-400 hover:text-slate-700'
                   }`}
                 >
-                  {tab.replace('-', ' ')}
+                  {tab.replace(/-/g, ' ')}
                 </button>
               ))}
             </div>
@@ -703,11 +718,64 @@ export default function ProductDetail() {
                   </div>
                 )}
 
+                {activeTab === 'benefits' && (
+                  <ul className="flex flex-col gap-2.5 animate-fade-in text-slate-500 font-semibold">
+                    {product.benefits && product.benefits.length > 0 ? product.benefits.map((b, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 mt-1.5" />
+                        <span>{b}</span>
+                      </li>
+                    )) : <p className="text-slate-400">No benefits listed.</p>}
+                  </ul>
+                )}
+
                 {activeTab === 'ingredients' && (
-                  <div className="animate-fade-in flex flex-col gap-2 text-slate-500 font-semibold">
-                    <p className="font-bold text-slate-700">100% Skin Safe Composition:</p>
-                    <p>{product.ingredients}</p>
-                    <p className="text-xs text-slate-400 mt-2">Certified by global organic standards (GOTS). Toxicological tests report zero traces of chlorine bleach, artificial fragrance, pesticides, or plastics.</p>
+                  <div className="animate-fade-in flex flex-col gap-3 text-slate-500 font-semibold">
+                    {product.material && (
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Material</span>
+                        <p>{product.material}</p>
+                      </div>
+                    )}
+                    {product.fragrance && (
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Fragrance</span>
+                        <p>{product.fragrance}</p>
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Ingredients / Composition</span>
+                      <p>{product.ingredients || '—'}</p>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-1">Certified by global organic standards (GOTS). Toxicological tests report zero traces of chlorine bleach, artificial fragrance, pesticides, or plastics.</p>
+                  </div>
+                )}
+
+                {activeTab === 'disposal' && (
+                  <div className="bg-rose-50/15 p-5 border border-rose-50 rounded-2xl flex flex-col gap-3 animate-fade-in text-slate-500 font-semibold">
+                    <p className="font-semibold text-slate-800 text-sm">Disposal Instructions</p>
+                    <p>{product.disposalInstructions || 'Wrap used product in the wrapper or paper bag provided and dispose in a waste bin. Do not flush down the toilet.'}</p>
+                    <p className="text-xs text-rose-500 font-semibold mt-1">♻️ Please dispose responsibly. Our packaging is biodegradable.</p>
+                  </div>
+                )}
+
+                {activeTab === 'product-info' && (
+                  <div className="animate-fade-in grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                    {[
+                      { label: 'SKU / Product Code', value: product.sku },
+                      { label: 'Shelf Life / Expiry', value: product.shelfLife },
+                      { label: 'Weight', value: product.weight ? `${product.weight}g` : null },
+                      { label: 'Dimensions', value: product.dimensions ? `${product.dimensions} cm` : null },
+                      { label: 'Manufacturing Details', value: product.manufacturingDetails },
+                      { label: 'Category', value: product.category },
+                      { label: 'Absorbency', value: product.absorbencyLabel || product.absorbency },
+                      { label: 'Size', value: product.size },
+                    ].filter(r => r.value).map(({ label, value }) => (
+                      <div key={label} className="bg-rose-50/20 border border-rose-100/40 rounded-2xl px-4 py-3 flex flex-col gap-0.5">
+                        <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{label}</span>
+                        <span className="text-sm font-semibold text-slate-700">{value}</span>
+                      </div>
+                    ))}
                   </div>
                 )}
 

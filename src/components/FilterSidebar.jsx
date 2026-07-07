@@ -12,7 +12,17 @@ export default function FilterSidebar({
   setPriceLimit,
   onReset
 }) {
-  const categories = ["All Products", "Regular Pads", "XL Pads", "Overnight Pads", "Panty Liners", "Combo Packs"];
+  const categories = [
+    "All Products",
+    "Sanitary Pads",
+    "Panty Liners",
+    "Maternity Pads",
+    "Organic Pads",
+    "Menstrual Cups",
+    "Tampons",
+    "Feminine Wash",
+    "Combo Packs"
+  ];
   const absorbencies = ["Light", "Medium", "Heavy", "Overnight"];
   const sizes = ["155mm", "240mm", "280mm", "320mm"];
 
@@ -116,14 +126,14 @@ export default function FilterSidebar({
         <input
           type="range"
           min="99"
-          max="599"
+          max="9999"
           value={priceLimit}
           onChange={(e) => setPriceLimit(parseInt(e.target.value))}
           className="w-full h-1.5 bg-rose-100 rounded-lg appearance-none cursor-pointer accent-primary focus:outline-none"
         />
         <div className="flex justify-between text-[10px] text-slate-400 font-bold">
           <span>₹99</span>
-          <span>₹599</span>
+          <span>₹9999</span>
         </div>
       </div>
     </aside>

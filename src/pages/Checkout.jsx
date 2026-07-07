@@ -59,7 +59,7 @@ export default function Checkout() {
           
           <div className="flex flex-col gap-2">
             <h2 className="font-outfit text-2xl font-extrabold text-slate-800">Order Placed Successfully!</h2>
-            <p className="text-xs text-slate-400 font-medium">Thank you for shopping with Haana Care. Your hygiene package is on its way.</p>
+            <p className="text-xs text-slate-400 font-medium">Thank you for shopping with Hana Care. Your hygiene package is on its way.</p>
           </div>
 
           <div className="w-full bg-[#FAF7F8] p-4 rounded-2xl text-left text-xs font-semibold text-slate-500 flex flex-col gap-2.5 my-2 border border-rose-100/50">

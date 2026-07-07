@@ -103,7 +103,7 @@ export default function ProductCard({ product }) {
       )}
 
       {/* Card Image area */}
-      <Link to={`/product/${product.id}`} className="block relative pt-6 px-6">
+      <Link to={`/product/${product.id}`} className="block relative pt-4 px-4 sm:pt-6 sm:px-6">
         <div className={`w-full aspect-square rounded-2xl ${getMockupThemeBg(product.id)} p-5 flex items-center justify-center relative shadow-inner overflow-hidden group-hover:scale-[1.02] transition-transform duration-300`}>
           <img
             src={product.image}
@@ -114,7 +114,7 @@ export default function ProductCard({ product }) {
       </Link>
 
       {/* Details Area */}
-      <div className="p-5 flex flex-col justify-between flex-grow text-left">
+      <div className="p-3 sm:p-5 flex flex-col justify-between flex-grow text-left">
         <div>
           <Link to={`/product/${product.id}`} className="hover:text-primary transition-colors block mb-1">
             <h3 className="font-outfit font-bold text-slate-800 text-sm leading-snug tracking-tight line-clamp-2 min-h-[40px]">
@@ -141,7 +141,7 @@ export default function ProductCard({ product }) {
           </div>
 
           {/* Absorbency Flow Level */}
-          <div className="flex items-center justify-between mt-2.5 mb-5 bg-rose-50/10 border border-rose-100/35 rounded-2xl px-3 py-2">
+          <div className="hidden sm:flex items-center justify-between mt-2.5 mb-4 bg-rose-50/10 border border-rose-100/35 rounded-2xl px-3 py-2">
             <span className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">Flow</span>
             <div className="flex items-center gap-2">
               {renderSmallDroplets(product.droplets)}
@@ -151,8 +151,8 @@ export default function ProductCard({ product }) {
             </div>
           </div>
 
-          {/* Size Select Dropdown / Popdown */}
-          <div className="flex flex-col gap-1 mt-2 mb-3 text-left">
+          {/* Size Select Dropdown */}
+          <div className="hidden sm:flex flex-col gap-1 mt-2 mb-3 text-left">
             <label className="text-[9px] uppercase font-bold text-slate-400 tracking-wider">Select Waist Size</label>
             <select
               value={selectedSize}

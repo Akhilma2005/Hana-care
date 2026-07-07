@@ -1,10 +1,12 @@
-export const products = [
+const STORAGE_KEY = 'haana-care-products';
+
+const productSeed = [
   {
     id: "regular-pads-240",
     image: "/products/regular-pads.png",
-    name: "Haana Care Regular Pads (240mm)",
+    name: "Hana Care Regular Pads (240mm)",
     shortName: "Regular Pads",
-    category: "Regular Pads",
+    category: "Sanitary Pads",
     price: 149,
     originalPrice: 169,
     rating: 4.8,
@@ -18,7 +20,7 @@ export const products = [
       "Daytime active wear",
       "Average flow cycles"
     ],
-    description: "Haana Care Regular Pads are specially designed for moderate flow days. Extra soft top layer with leak lock technology gives you peaceful & comfortable days without worry.",
+    description: "Hana Care Regular Pads are specially designed for moderate flow days. Extra soft top layer with leak lock technology gives you peaceful & comfortable days without worry.",
     features: [
       "Extra long 240mm for moderate protection",
       "Quick absorption & dry-feel top sheet",
@@ -38,9 +40,9 @@ export const products = [
   {
     id: "xl-pads-280",
     image: "/products/xl-pads.png",
-    name: "Haana Care XL Pads (280mm)",
+    name: "Hana Care XL Pads (280mm)",
     shortName: "XL Pads",
-    category: "XL Pads",
+    category: "Sanitary Pads",
     price: 179,
     originalPrice: 229,
     rating: 4.9,
@@ -54,7 +56,7 @@ export const products = [
       "Office or college hours",
       "Extended daytime use"
     ],
-    description: "Haana Care XL Pads offer superior protection for heavy flow days. The extra coverage and secure wings ensure zero leakage even during active movement.",
+    description: "Hana Care XL Pads offer superior protection for heavy flow days. The extra coverage and secure wings ensure zero leakage even during active movement.",
     features: [
       "280mm length with wider back for heavy flow",
       "Double wings for maximum grip and security",
@@ -74,9 +76,9 @@ export const products = [
   {
     id: "overnight-pads-320",
     image: "/products/overnight-pads.png",
-    name: "Haana Care Overnight Pads (320mm)",
+    name: "Hana Care Overnight Pads (320mm)",
     shortName: "Overnight Pads",
-    category: "Overnight Pads",
+    category: "Sanitary Pads",
     price: 199,
     originalPrice: 249,
     rating: 4.9,
@@ -90,7 +92,7 @@ export const products = [
       "Post-delivery nights",
       "Up to 12 hours sleep"
     ],
-    description: "Haana Care Overnight Pads are specially designed for heavy flow nights. Extra long 320mm and wide back with leak lock technology gives you peaceful and confident sleep up to 12 hours.",
+    description: "Hana Care Overnight Pads are specially designed for heavy flow nights. Extra long 320mm and wide back with leak lock technology gives you peaceful and confident sleep up to 12 hours.",
     features: [
       "Extra long 320mm for full night protection",
       "Quick absorption & dry feel core",
@@ -110,7 +112,7 @@ export const products = [
   {
     id: "panty-liners-155",
     image: "/products/panty-liners.png",
-    name: "Haana Care Panty Liners (155mm)",
+    name: "Hana Care Panty Liners (155mm)",
     shortName: "Panty Liners",
     category: "Panty Liners",
     price: 99,
@@ -126,7 +128,7 @@ export const products = [
       "Spotting days",
       "Tampon/cup backup"
     ],
-    description: "Haana Care Panty Liners are ultra-thin and flexible, designed for everyday freshness, light discharge days, or backup for tampons/cups.",
+    description: "Hana Care Panty Liners are ultra-thin and flexible, designed for everyday freshness, light discharge days, or backup for tampons/cups.",
     features: [
       "155mm ultra-thin daily comfort design",
       "Breathable layers prevent moisture build-up",
@@ -146,7 +148,7 @@ export const products = [
   {
     id: "combo-pack-monthly",
     image: "/products/combo-pack.png",
-    name: "Haana Care Combo Pack (Monthly Pack)",
+    name: "Hana Care Combo Pack (Monthly Pack)",
     shortName: "Combo Pack",
     category: "Combo Packs",
     price: 499,
@@ -182,7 +184,7 @@ export const products = [
   {
     id: "trial-pack-mix",
     image: "/products/trial-pack.png",
-    name: "Haana Care Trial Pack (Mix Pack)",
+    name: "Hana Care Trial Pack (Mix Pack)",
     shortName: "Trial Pack",
     category: "Combo Packs",
     price: 149,
@@ -198,7 +200,7 @@ export const products = [
       "First-time users",
       "Travel convenience"
     ],
-    description: "New to Haana Care? Try our mixed sample pack containing 2 Regular, 2 XL, and 2 Overnight pads to discover your perfect fit and absorbency comfort level.",
+    description: "New to Hana Care? Try our mixed sample pack containing 2 Regular, 2 XL, and 2 Overnight pads to discover your perfect fit and absorbency comfort level.",
     features: [
       "Includes 6 total pads across all size ranges",
       "Perfect for trying out the texture and fit",
@@ -218,9 +220,9 @@ export const products = [
   {
     id: "comfort-period-panties",
     image: "/products/period-panties.png",
-    name: "Haana Care Comfort Period Panties",
+    name: "Hana Care Comfort Period Panties",
     shortName: "Period Panties",
-    category: "Period Panties",
+    category: "Sanitary Pads",
     price: 358,
     originalPrice: 498,
     rating: 4.6,
@@ -234,7 +236,7 @@ export const products = [
       "360° leak protection",
       "Active movement sleep"
     ],
-    description: "Haana Care Comfort Period Panties are disposable menstrual underwear designed for maximum overnight flow security. Offers 360-degree leak protection, ultra-absorbent core, and a discreet, seamless fit.",
+    description: "Hana Care Comfort Period Panties are disposable menstrual underwear designed for maximum overnight flow security. Offers 360-degree leak protection, ultra-absorbent core, and a discreet, seamless fit.",
     features: [
       "Ultra-absorbent Core",
       "Discreet and Seamless Fit",
@@ -251,6 +253,64 @@ export const products = [
     badge: "Seamless Fit"
   }
 ];
+
+const readStoredProducts = () => {
+  if (typeof window === 'undefined') return productSeed;
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (!stored) return productSeed;
+    const parsed = JSON.parse(stored);
+    return Array.isArray(parsed) && parsed.length ? parsed : productSeed;
+  } catch {
+    return productSeed;
+  }
+};
+
+const persistProducts = (items) => {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+};
+
+export let products = readStoredProducts();
+
+export function addProduct(product) {
+  const normalized = {
+    id: String(product.id || product.name?.toLowerCase().replace(/[^a-z0-9]+/g, '-') || `product-${Date.now()}`),
+    image: product.image || '/products/regular-pads.png',
+    name: product.name || 'New Product',
+    shortName: product.shortName || product.name || 'New Product',
+    category: product.category || 'Wellness',
+    price: Number(product.price) || 0,
+    originalPrice: Number(product.originalPrice) || Math.max(Number(product.price) || 0, 1),
+    rating: Number(product.rating) || 4.7,
+    reviewCount: Number(product.reviewCount) || 0,
+    size: product.size || 'Mixed Sizes',
+    absorbency: product.absorbency || 'Medium',
+    droplets: Number(product.droplets) || 3,
+    absorbencyLabel: product.absorbencyLabel || 'Medium Flow',
+    idealFor: Array.isArray(product.idealFor) ? product.idealFor : ['Daily comfort', 'Easy use'],
+    description: product.description || 'Newly added product from the admin dashboard.',
+    features: Array.isArray(product.features) ? product.features : ['Comfortable design', 'Premium quality'],
+    howToUse: product.howToUse || 'Use as directed.',
+    ingredients: product.ingredients || 'Premium quality materials.',
+    reviewsList: Array.isArray(product.reviewsList) ? product.reviewsList : [{ name: 'Customer', rating: 5, date: 'Recently added', comment: 'New product from admin.' }],
+    colorTheme: product.colorTheme || 'from-pink-400 to-rose-500',
+    badge: product.badge || 'New',
+    stock: Number(product.stock) || 0,
+    isAdminAdded: true,
+  };
+
+  products = [normalized, ...products];
+  persistProducts(products);
+  return normalized;
+}
+
+export function deleteProduct(productId) {
+  const id = String(productId);
+  products = products.filter((item) => String(item.id) !== id);
+  persistProducts(products);
+  return products;
+}
 
 export const blogPosts = [
   {
@@ -290,8 +350,8 @@ export const blogPosts = [
 
 export const faqData = [
   {
-    question: "What makes Haana Care pads different from conventional pads?",
-    answer: "Conventional pads often contain synthetic materials, chlorine bleach, fragrances, and plastic linings that trap moisture, leading to rashes and irritation. Haana Care pads feature a 100% certified organic cotton top sheet, natural wood pulp cores, and breathable backing, meaning they are completely hypoallergenic, chemical-free, and dermatologically tested to prevent rashes."
+    question: "What makes Hana Care pads different from conventional pads?",
+    answer: "Conventional pads often contain synthetic materials, chlorine bleach, fragrances, and plastic linings that trap moisture, leading to rashes and irritation. Hana Care pads feature a 100% certified organic cotton top sheet, natural wood pulp cores, and breathable backing, meaning they are completely hypoallergenic, chemical-free, and dermatologically tested to prevent rashes."
   },
   {
     question: "How often should I change my sanitary pad?",
@@ -302,7 +362,7 @@ export const faqData = [
     answer: "With Subscribe & Save, you select your favorite products (like our Monthly Combo Pack) and set your delivery frequency. You receive an automatic 15% discount on all recurring orders, free shipping, and priority dispatch. You can pause, modify, or cancel your subscription at any time directly from your dashboard."
   },
   {
-    question: "Are Haana Care products eco-friendly?",
+    question: "Are Hana Care products eco-friendly?",
     answer: "Yes, we prioritize sustainability. The cotton in our pads is organic and biodegrades faster than plastic-based sheets. We also provide biodegradable wrapper papers and disposal bags. We are constantly working to reduce plastic use in our packaging."
   },
   {

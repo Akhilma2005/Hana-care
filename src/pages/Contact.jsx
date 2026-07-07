@@ -27,7 +27,7 @@ export default function Contact() {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto mb-16">
         <span className="text-xs font-bold text-primary uppercase tracking-widest bg-primary-light px-3 py-1 rounded-full">Get In Touch</span>
-        <h1 className="font-outfit text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 font-outfit">Contact Haana Care</h1>
+        <h1 className="font-outfit text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3 font-outfit">Contact Hana Care</h1>
         <p className="text-slate-500 mt-2 text-sm sm:text-base leading-relaxed">Have a question about our products or your subscription? Reach out to us, and our team will get back to you shortly.</p>
       </div>
 
@@ -58,7 +58,7 @@ export default function Contact() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] uppercase font-bold text-slate-400">Email Support</span>
-                  <span className="text-sm font-bold text-slate-700 mt-0.5 break-all">support@haanacare.com</span>
+                  <span className="text-sm font-bold text-slate-700 mt-0.5 break-all">support@hanacare.com</span>
                 </div>
               </div>
 

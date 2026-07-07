@@ -76,7 +76,7 @@ export default function FAQ() {
             WhatsApp Support
           </a>
           <a
-            href="mailto:support@haanacare.com"
+            href="mailto:support@hanacare.com"
             className="flex items-center justify-center gap-2 py-3 px-6 text-xs font-bold text-primary bg-white border border-rose-200 hover:bg-rose-50/30 rounded-xl shadow-sm transition-colors"
           >
             <Mail className="w-4 h-4" />

@@ -28,10 +28,28 @@ export default function Dashboard() {
         <span className="text-slate-700">My Dashboard</span>
       </nav>
 
+      {/* Mobile: horizontal tab bar */}
+      <div className="lg:hidden flex overflow-x-auto scrollbar-none gap-2 mb-6 pb-1">
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setActiveMenu(item.id)}
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
+              activeMenu === item.id
+                ? 'bg-primary text-white shadow-sm'
+                : 'bg-white border border-rose-100 text-slate-500'
+            }`}
+          >
+            {item.icon}
+            {item.label}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left items-start">
         
-        {/* Left Side: Sidebar Panel */}
-        <aside className="lg:col-span-3 bg-white border border-rose-50 rounded-3xl p-5 shadow-sm flex flex-col gap-2">
+        {/* Left Side: Sidebar Panel — desktop only */}
+        <aside className="hidden lg:flex lg:col-span-3 bg-white border border-rose-50 rounded-3xl p-5 shadow-sm flex-col gap-2">
           {/* User Brief profile card */}
           <div className="flex items-center gap-3 p-3 border-b border-rose-50 mb-3">
             <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center font-outfit font-black text-primary">
@@ -66,7 +84,7 @@ export default function Dashboard() {
         </aside>
 
         {/* Right Side: Tab Contents */}
-        <main className="lg:col-span-9 flex flex-col gap-6">
+        <main className="col-span-1 lg:col-span-9 flex flex-col gap-6">
           
           {/* 1. DASHBOARD OVERVIEW PANEL */}
           {activeMenu === 'dashboard' && (
@@ -228,7 +246,7 @@ export default function Dashboard() {
               <div className="border border-rose-50 rounded-2xl p-5 bg-[#FAF7F8] flex flex-col sm:flex-row justify-between sm:items-center gap-4 text-xs">
                 <div className="flex flex-col gap-1.5">
                   <span className="text-xs uppercase font-extrabold text-primary">Monthly Combo Box</span>
-                  <span className="font-bold text-slate-800 text-sm">Haana Care Combo Pack (Monthly Pack)</span>
+                  <span className="font-bold text-slate-800 text-sm">Hana Care Combo Pack (Monthly Pack)</span>
                   <p className="text-slate-400 font-semibold mt-0.5">Dispatches: <strong className="text-slate-700 font-bold">Every 28 Days</strong></p>
                   <p className="text-slate-400 font-semibold">Next Dispatch: <strong className="text-slate-700 font-bold">{nextPeriod}</strong></p>
                 </div>

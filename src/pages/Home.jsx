@@ -3,14 +3,26 @@ import { useNavigate, Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight, Award, Feather, Sparkles, Clock, Compass } from 'lucide-react';
 import Hero from '../components/Hero';
 import ProductCard from '../components/ProductCard';
-import { products, blogPosts } from '../data/products';
+import { blogPosts } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 
 export default function Home() {
+  const { products } = useProducts();
   const [activeCategory, setActiveCategory] = useState("All Products");
   const navigate = useNavigate();
   const scrollRef = useRef(null);
 
-  const categories = ["All Products", "Regular Pads", "XL Pads", "Overnight Pads", "Panty Liners", "Combo Packs"];
+  const categories = [
+    "All Products",
+    "Sanitary Pads",
+    "Panty Liners",
+    "Maternity Pads",
+    "Organic Pads",
+    "Menstrual Cups",
+    "Tampons",
+    "Feminine Wash",
+    "Combo Packs"
+  ];
 
   // Filter products based on selected bestselling category pill
   const filteredProducts = activeCategory === "All Products"
@@ -103,7 +115,7 @@ export default function Home() {
               className="flex gap-5 overflow-x-auto scrollbar-none scroll-smooth snap-x snap-mandatory flex-1"
             >
               {filteredProducts.map((product) => (
-                <div key={product.id} className="snap-start shrink-0 w-[calc(25%-12px)] min-w-[220px]">
+                <div key={product.id} className="snap-start shrink-0 w-[72vw] sm:w-[45vw] md:w-[calc(33%-10px)] lg:w-[calc(25%-12px)] max-w-[280px]">
                   <ProductCard product={product} />
                 </div>
               ))}
@@ -137,7 +149,7 @@ export default function Home() {
 
       {/* Subscribe & Save Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-        <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-3xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-3xl p-6 md:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
           {/* Decorative gradients */}
           <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-white/5 blur-2xl -z-0"></div>
 
@@ -160,11 +172,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Haana Care */}
+      {/* Why Choose Hana Care */}
       <section className="bg-gradient-to-b from-white to-[#FAF7F8] py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-outfit">Why Choose Haana Care?</h2>
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-outfit">Why Choose Hana Care?</h2>
             <p className="text-slate-500 mt-2 text-sm max-w-md mx-auto">Designed for comfort, validated for skin health safety.</p>
           </div>
 
@@ -272,8 +284,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Feature tags row below */}
-          <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          {/* Feature tags row below — hidden on mobile */}
+          <div className="hidden sm:grid mt-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
             {[
               { label: "Hypoallergenic 100% organic cotton top sheet prevents rashes." },
               { label: "Advanced channel grids lock fluid immediately to avoid leakage." },

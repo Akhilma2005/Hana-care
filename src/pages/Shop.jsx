@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Search, ChevronRight } from 'lucide-react';
+import { Search, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
 import FilterSidebar from '../components/FilterSidebar';
 import ProductCard from '../components/ProductCard';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 
 export default function Shop() {
+  const { products } = useProducts();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const initialCategory = queryParams.get('category') || 'All Products';
@@ -15,7 +16,7 @@ export default function Shop() {
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedAbsorbency, setSelectedAbsorbency] = useState([]);
   const [selectedSize, setSelectedSize] = useState([]);
-  const [priceLimit, setPriceLimit] = useState(599);
+  const [priceLimit, setPriceLimit] = useState(9999);
   const [sortBy, setSortBy] = useState('popular');
   const [searchTerm, setSearchTerm] = useState(initialSearch);
 
@@ -85,6 +86,8 @@ export default function Shop() {
     return b.reviewCount - a.reviewCount;
   });
 
+  const [filterOpen, setFilterOpen] = useState(false);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 font-sans">
       
@@ -95,10 +98,45 @@ export default function Shop() {
         <span className="text-slate-700">Shop</span>
       </nav>
 
+      {/* Mobile Filter Button */}
+      <div className="lg:hidden mb-4">
+        <button
+          onClick={() => setFilterOpen(true)}
+          className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-primary border border-primary/30 rounded-full bg-white shadow-sm"
+        >
+          <SlidersHorizontal className="w-4 h-4" />
+          Filters
+        </button>
+      </div>
+
+      {/* Mobile Filter Drawer */}
+      {filterOpen && (
+        <div className="fixed inset-0 z-50 flex lg:hidden">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setFilterOpen(false)} />
+          <div className="relative ml-auto w-4/5 max-w-xs h-full bg-white overflow-y-auto p-4 shadow-xl">
+            <div className="flex justify-between items-center mb-4">
+              <span className="font-bold text-slate-800">Filters</span>
+              <button onClick={() => setFilterOpen(false)}><X className="w-5 h-5 text-slate-500" /></button>
+            </div>
+            <FilterSidebar
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              selectedAbsorbency={selectedAbsorbency}
+              setSelectedAbsorbency={setSelectedAbsorbency}
+              selectedSize={selectedSize}
+              setSelectedSize={setSelectedSize}
+              priceLimit={priceLimit}
+              setPriceLimit={setPriceLimit}
+              onReset={handleResetFilters}
+            />
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         
-        {/* Left Side: Filter Panel */}
-        <div className="lg:col-span-1">
+        {/* Left Side: Filter Panel — desktop only */}
+        <div className="hidden lg:block lg:col-span-1">
           <FilterSidebar
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
@@ -152,7 +190,7 @@ export default function Shop() {
 
           {/* Products Grid */}
           {sortedProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {sortedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

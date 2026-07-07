@@ -23,7 +23,7 @@ export default function Blog() {
       </nav>
 
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight font-outfit">Haana Care Health Blog</h1>
+        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight font-outfit">Hana Care Health Blog</h1>
         <p className="text-slate-500 mt-2 text-sm max-w-md mx-auto">Your guide to cycle wellness, body hygiene, and positive period health.</p>
       </div>
 

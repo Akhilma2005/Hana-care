@@ -22,10 +22,10 @@ export default function Footer() {
         {/* Brand Column */}
         <div className="lg:col-span-2 flex flex-col gap-4">
           <Link to="/" className="flex items-center overflow-hidden h-16 w-max">
-            <img src="/logo.png" alt="Haana Care Logo" className="h-40 object-contain mix-blend-multiply my-[-12px]" />
+            <img src="/logo.png" alt="Hana Care Logo" className="h-40 object-contain mix-blend-multiply my-[-12px]" />
           </Link>
           <p className="text-slate-500 text-sm leading-relaxed max-w-sm">
-            Haana Care is committed to providing premium, skin-friendly, and organic menstrual care products. Designed by women, for women, to ensure rash-free, leak-proof confidence every single day.
+            Hana Care is committed to providing premium, skin-friendly, and organic menstrual care products. Designed by women, for women, to ensure rash-free, leak-proof confidence every single day.
           </p>
           <div className="flex gap-4 mt-2">
             <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white border border-rose-100 flex items-center justify-center text-slate-500 hover:text-primary hover:border-primary transition-all" aria-label="Facebook">
@@ -84,7 +84,7 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-primary shrink-0" />
-              <span className="break-all">support@haanacare.com</span>
+              <span className="break-all">support@hanacare.com</span>
             </li>
             <li className="flex items-start gap-2">
               <Clock className="w-4 h-4 text-primary shrink-0 mt-0.5" />
@@ -121,7 +121,7 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto text-center mt-12 text-slate-400 text-xs">
-        <p>&copy; {new Date().getFullYear()} Haana Care. All Rights Reserved. Crafted for premium hygiene and ultimate comfort.</p>
+        <p>&copy; {new Date().getFullYear()} Hana Care. All Rights Reserved. Crafted for premium hygiene and ultimate comfort.</p>
       </div>
     </footer>
   );

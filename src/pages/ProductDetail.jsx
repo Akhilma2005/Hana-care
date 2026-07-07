@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Star, ShieldAlert, Sparkles, Heart, Wind, ChevronRight, ChevronLeft, ShoppingCart, ShieldCheck, Check, Minus, Plus, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { products } from '../data/products';
+import { useProducts } from '../context/ProductContext';
 import ProductCard from '../components/ProductCard';
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { products } = useProducts();
   const [product, setProduct] = useState(null);
 
   // Selector states
@@ -26,6 +26,13 @@ export default function ProductDetail() {
   const [showSizeGuideModal, setShowSizeGuideModal] = useState(false);
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [reviewForm, setReviewForm] = useState({ name: '', comment: '', rating: 0, hover: 0, submitted: false });
+
+  const recScrollRef = useRef(null);
+  const scrollRec = (dir) => {
+    if (recScrollRef.current) {
+      recScrollRef.current.scrollBy({ left: dir === 'left' ? -300 : 300, behavior: 'smooth' });
+    }
+  };
 
   const handleCheckDelivery = () => {
     if (pincode.length < 6) {
@@ -104,15 +111,15 @@ export default function ProductDetail() {
   const getThumbnails = () => {
     if (product.category === 'Period Panties') {
       return [
-        { name: "Front Package", theme: product.colorTheme, desc: "Haana Care disposable period panties with zero irritation, high absorbency for heavy flow, seamless fit, and soft airy topsheet made of toxic-free materials." },
-        { name: "New Packaging", theme: "from-orange-100 to-rose-200", desc: "New packaging of Haana Care disposable period panties, same trusted zero-irritation design and comfortable, toxic-free protection, you may receive either pack with the same reliable quality." },
-        { name: "All-Day Comfort", theme: "from-pink-100 to-rose-200", desc: "Haana Care All-Day Comfort period panties are designed with breathable, rash-free fabric, an ultra-absorbent core for leak-proof protection, and a seamless fit that adapts to active lifestyles, made with toxic-free materials." },
-        { name: "High-Waisted Fit", theme: "from-rose-100 to-orange-100", desc: "High-waisted Haana Care period panties with seamless, panty-like design and super-soft no-mark waistband for comfortable, leak-proof period protection." },
+        { name: "Front Package", theme: product.colorTheme, desc: "Hana Care disposable period panties with zero irritation, high absorbency for heavy flow, seamless fit, and soft airy topsheet made of toxic-free materials." },
+        { name: "New Packaging", theme: "from-orange-100 to-rose-200", desc: "New packaging of Hana Care disposable period panties, same trusted zero-irritation design and comfortable, toxic-free protection, you may receive either pack with the same reliable quality." },
+        { name: "All-Day Comfort", theme: "from-pink-100 to-rose-200", desc: "Hana Care All-Day Comfort period panties are designed with breathable, rash-free fabric, an ultra-absorbent core for leak-proof protection, and a seamless fit that adapts to active lifestyles, made with toxic-free materials." },
+        { name: "High-Waisted Fit", theme: "from-rose-100 to-orange-100", desc: "High-waisted Hana Care period panties with seamless, panty-like design and super-soft no-mark waistband for comfortable, leak-proof period protection." },
         { name: "Multi-Use Comfort", theme: "from-slate-100 to-rose-50", desc: "High-comfort disposable period underwear offering leak protection for heavy flow, early period days, travel days, long hectic days, and postpartum care." },
         { name: "Absorbency Comparison", theme: "from-purple-100 to-rose-100", desc: "Comparison of regular pads and comfort period panties, highlighting 4× absorbency and up to 10 hours of full-coverage menstrual protection." },
         { name: "Size Range", theme: "from-emerald-50 to-orange-100", desc: "Our disposable period panties are available in sizes S-M to XXL-XXXL, fitting waist sizes 22-52 inches and hip sizes 32-54 inches, with uniform absorbency and a comfortable, secure fit." },
-        { name: "Step-by-Step Guide", theme: "from-amber-50 to-rose-100", desc: "Step-by-step usage guide to use Haana Care period panties showing the open, wear, and discard process." },
-        { name: "Safe Certifications", theme: "from-teal-50 to-emerald-100", desc: "Haana Care disposable period panties with dermatologically tested, non-irritant, cruelty-free, Made Safe, and toxic-free certifications." }
+        { name: "Step-by-Step Guide", theme: "from-amber-50 to-rose-100", desc: "Step-by-step usage guide to use Hana Care period panties showing the open, wear, and discard process." },
+        { name: "Safe Certifications", theme: "from-teal-50 to-emerald-100", desc: "Hana Care disposable period panties with dermatologically tested, non-irritant, cruelty-free, Made Safe, and toxic-free certifications." }
       ];
     }
     return [
@@ -163,7 +170,18 @@ export default function ProductDetail() {
     );
   };
 
-  const thumbnails = getThumbnails();
+  // Build gallery: use admin-uploaded images if present, else fall back to getThumbnails()
+  const buildGallery = () => {
+    if (product.images && product.images.length > 0) {
+      return [
+        { type: 'main', src: product.image, name: product.shortName || product.name, desc: product.description || '' },
+        ...product.images.map((src, i) => ({ type: 'uploaded', src, name: `Image ${i + 2}`, desc: '' }))
+      ];
+    }
+    // fallback: original getThumbnails logic
+    return getThumbnails().map((t, i) => ({ type: i === 0 ? 'main' : 'thumb', ...t }));
+  };
+  const gallery = buildGallery();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 font-sans">
@@ -189,7 +207,7 @@ export default function ProductDetail() {
           <div className="w-full aspect-square rounded-3xl bg-[#FAF6F7] p-8 flex items-center justify-center relative shadow-md overflow-hidden border border-rose-100/10">
             {/* Prev arrow button */}
             <button
-              onClick={() => setActiveImgIndex((prev) => (prev === 0 ? thumbnails.length - 1 : prev - 1))}
+              onClick={() => setActiveImgIndex((prev) => (prev === 0 ? gallery.length - 1 : prev - 1))}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/80 hover:bg-white text-slate-700 hover:text-primary backdrop-blur-sm rounded-full flex items-center justify-center shadow-md active:scale-95 transition-all cursor-pointer border border-rose-50"
               title="Previous Image"
               type="button"
@@ -197,20 +215,20 @@ export default function ProductDetail() {
               <ChevronLeft className="w-5 h-5" />
             </button>
 
-            {activeImgIndex === 0 ? (
+            {gallery[activeImgIndex].type === 'main' || gallery[activeImgIndex].type === 'uploaded' ? (
               <img
-                src={product.image}
-                alt={product.name}
+                src={gallery[activeImgIndex].src}
+                alt={gallery[activeImgIndex].name}
                 className="max-w-[90%] max-h-[90%] object-contain drop-shadow-xl hover:scale-[1.02] transition-transform duration-500 rounded-2xl animate-fade-in"
               />
             ) : (
-              <div className={`w-full h-full rounded-2xl bg-gradient-to-tr ${thumbnails[activeImgIndex].theme} p-12 flex flex-col justify-between items-center text-white relative shadow-inner overflow-hidden animate-fade-in`}>
-                <span className="font-outfit text-xs font-black tracking-widest opacity-80 uppercase">Haana Care</span>
+              <div className={`w-full h-full rounded-2xl bg-gradient-to-tr ${gallery[activeImgIndex].theme} p-12 flex flex-col justify-between items-center text-white relative shadow-inner overflow-hidden animate-fade-in`}>
+                <span className="font-outfit text-xs font-black tracking-widest opacity-80 uppercase">Hana Care</span>
                 <div className="w-20 h-32 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/25">
                   <Heart className="w-6 h-6 text-white/50 animate-pulse" />
                 </div>
                 <div className="flex flex-col items-center">
-                  <span className="font-outfit text-sm font-bold">{thumbnails[activeImgIndex].name}</span>
+                  <span className="font-outfit text-sm font-bold">{gallery[activeImgIndex].name}</span>
                   <span className="text-[10px] opacity-75">Premium Details Preview</span>
                 </div>
               </div>
@@ -218,7 +236,7 @@ export default function ProductDetail() {
 
             {/* Next arrow button */}
             <button
-              onClick={() => setActiveImgIndex((prev) => (prev === thumbnails.length - 1 ? 0 : prev + 1))}
+              onClick={() => setActiveImgIndex((prev) => (prev === gallery.length - 1 ? 0 : prev + 1))}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 bg-white/80 hover:bg-white text-slate-700 hover:text-primary backdrop-blur-sm rounded-full flex items-center justify-center shadow-md active:scale-95 transition-all cursor-pointer border border-rose-50"
               title="Next Image"
               type="button"
@@ -229,7 +247,7 @@ export default function ProductDetail() {
 
           {/* Active slide description/caption box */}
           <div className="bg-rose-50/15 border border-rose-100/40 p-4 rounded-2xl text-xs font-semibold text-slate-500 leading-relaxed text-center shadow-inner mt-1">
-            {thumbnails[activeImgIndex].desc}
+            {gallery[activeImgIndex].desc || gallery[activeImgIndex].name}
           </div>
 
           {/* Thumbnails list underneath the main image with horizontal sliding option */}
@@ -250,19 +268,19 @@ export default function ProductDetail() {
               id="thumb-slider"
               className="flex flex-row gap-3 overflow-x-auto scroll-smooth py-1.5 px-1 max-w-full scrollbar-none items-center snap-x w-full"
             >
-              {thumbnails.map((thumb, idx) => (
+              {gallery.map((item, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImgIndex(idx)}
                   className={`w-14 h-14 rounded-xl p-0.5 border-2 transition-all flex items-center justify-center shrink-0 overflow-hidden shadow-sm cursor-pointer snap-start ${
                     activeImgIndex === idx ? 'border-primary scale-[1.03]' : 'border-transparent opacity-85 hover:opacity-100 hover:border-rose-100/50'
-                  } ${idx === 0 ? 'bg-[#FAF6F7]' : `bg-gradient-to-tr ${thumb.theme}`}`}
+                  } ${item.type === 'main' || item.type === 'uploaded' ? 'bg-[#FAF6F7]' : `bg-gradient-to-tr ${item.theme}`}`}
                 >
-                  {idx === 0 ? (
-                    <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
+                  {item.type === 'main' || item.type === 'uploaded' ? (
+                    <img src={item.src} alt={item.name} className="w-full h-full object-contain" />
                   ) : (
                     <div className="w-full h-full bg-white/75 backdrop-blur-sm rounded-lg flex items-center justify-center p-1 font-semibold text-[8px] text-slate-600 text-center leading-none whitespace-normal">
-                      {thumb.name}
+                      {item.name}
                     </div>
                   )}
                 </button>
@@ -352,7 +370,7 @@ export default function ProductDetail() {
                 <button
                   key={size}
                   onClick={() => setSelectedPackSize(size)}
-                  className={`px-4 py-2 text-xs font-bold rounded-xl border transition-all cursor-pointer ${
+                  className={`px-3 py-2 text-xs font-bold rounded-xl border transition-all cursor-pointer ${
                     selectedPackSize === size
                       ? 'bg-primary border-primary text-white shadow-sm'
                       : 'bg-white border-rose-100 text-slate-600 hover:border-primary/20 hover:text-primary'
@@ -589,13 +607,41 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Recommended Products — above details tabs */}
+      {/* Recommended Products */}
       <section className="border-t border-rose-100 pt-12 pb-4 text-left">
-        <div className="mb-8">
+        <div className="mb-6">
           <h3 className="font-outfit text-xl font-extrabold text-slate-800 tracking-tight">You May Also Like</h3>
           <p className="text-slate-400 text-xs font-semibold mt-1">Explore our range of other sanitary care options designed for different cycle flows.</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+
+        {/* Mobile: slider with arrows */}
+        <div className="flex sm:hidden items-center gap-2">
+          <button
+            onClick={() => scrollRec('left')}
+            className="shrink-0 w-9 h-9 bg-white border border-rose-100 rounded-full flex items-center justify-center text-primary shadow-md hover:bg-rose-50 active:scale-95 transition-all"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div
+            ref={recScrollRef}
+            className="flex gap-4 overflow-x-auto scrollbar-none snap-x snap-mandatory flex-1"
+          >
+            {products.filter((p) => p.id !== product?.id).slice(0, 4).map((p) => (
+              <div key={p.id} className="snap-start shrink-0 w-[72vw] max-w-[260px]">
+                <ProductCard product={p} />
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={() => scrollRec('right')}
+            className="shrink-0 w-9 h-9 bg-white border border-rose-100 rounded-full flex items-center justify-center text-primary shadow-md hover:bg-rose-50 active:scale-95 transition-all"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {products.filter((p) => p.id !== product?.id).slice(0, 4).map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
@@ -936,7 +982,7 @@ export default function ProductDetail() {
             {/* Header */}
             <div className="flex justify-between items-center pb-3 border-b border-rose-50">
               <div className="text-left">
-                <h3 className="font-outfit font-black text-slate-800 text-lg">Haana Care Size Guide</h3>
+                <h3 className="font-outfit font-black text-slate-800 text-lg">Hana Care Size Guide</h3>
                 <p className="text-[10px] text-slate-400 font-semibold mt-0.5">Find your perfect leak-proof fit coordinates.</p>
               </div>
               <button

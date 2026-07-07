@@ -47,7 +47,7 @@ export default function Header() {
           
           {/* Logo */}
           <Link to="/" className="flex items-center focus:outline-none overflow-hidden h-12 md:h-16">
-            <img src="/logo.png" alt="Haana Care Logo" className="h-32 md:h-40 object-contain mix-blend-multiply my-[-10px] md:my-[-12px]" />
+            <img src="/logo.png" alt="Hana Care Logo" className="h-32 md:h-40 object-contain mix-blend-multiply my-[-10px] md:my-[-12px]" />
           </Link>
 
           {/* Search bar Desktop */}

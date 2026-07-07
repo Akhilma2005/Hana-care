@@ -16,7 +16,7 @@ export default function About() {
       {/* Title */}
       <div className="text-center max-w-2xl mx-auto mb-16">
         <span className="text-xs font-bold text-primary uppercase tracking-widest bg-primary-light px-3 py-1 rounded-full">Our Story</span>
-        <h1 className="font-outfit text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mt-3">About Haana Care</h1>
+        <h1 className="font-outfit text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mt-3">About Hana Care</h1>
         <p className="text-slate-500 mt-2 text-sm sm:text-base leading-relaxed">We are committed to redrawing the parameters of feminine hygiene care with 100% skin-safe, rash-free, and natural organic materials.</p>
       </div>
 
@@ -25,7 +25,7 @@ export default function About() {
         <div className="flex flex-col gap-5 leading-relaxed text-sm text-slate-600 font-medium">
           <h2 className="font-outfit text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight border-l-4 border-primary pl-4 py-1">How We Started</h2>
           <p>
-            Haana Care was conceptualized by women who were fatigued by the recurring discomforts of conventional sanitary pads. Plastic top-sheets, toxic adhesives, and chlorine-bleached fibers regularly caused skin rashes, friction irritation, and moisture blockages.
+            Hana Care was conceptualized by women who were fatigued by the recurring discomforts of conventional sanitary pads. Plastic top-sheets, toxic adhesives, and chlorine-bleached fibers regularly caused skin rashes, friction irritation, and moisture blockages.
           </p>
           <p>
             We realized that menstrual care shouldn't come at the cost of skin health or comfort. By combining scientific absorbent grids with 100% organic cotton layers, we crafted a pad that keeps you dry and fresh, while remaining fully breathable and kind to sensitive skin.

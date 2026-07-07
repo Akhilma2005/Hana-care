@@ -9,6 +9,7 @@ export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { products } = useProducts();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
 
   // Selector states

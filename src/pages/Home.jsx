@@ -74,7 +74,7 @@ export default function Home() {
       <Hero />
 
       {/* Our Bestsellers */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-8xl mx-auto px-[8%] py-16">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-outfit">Our Bestsellers</h2>
           <p className="text-slate-500 mt-2 text-sm max-w-md mx-auto">Explore our top-selling period care solutions selected by thousands of women.</p>
@@ -99,11 +99,11 @@ export default function Home() {
 
         {/* Products Slider with arrow buttons */}
         {filteredProducts.length > 0 ? (
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 sm:gap-3 max-w-[1445px] mx-auto w-full">
             {/* Left Arrow */}
             <button
               onClick={() => scroll('left')}
-              className="shrink-0 w-10 h-10 bg-white border border-rose-100 rounded-full flex items-center justify-center text-primary shadow-md hover:bg-rose-50 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              className="hidden sm:flex shrink-0 w-10 h-10 bg-white border border-rose-100 rounded-full items-center justify-center text-primary shadow-md hover:bg-rose-50 hover:scale-105 active:scale-95 transition-all cursor-pointer"
               aria-label="Slide Left"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -112,10 +112,10 @@ export default function Home() {
             {/* Scrollable cards */}
             <div
               ref={scrollRef}
-              className="flex gap-5 overflow-x-auto scrollbar-none scroll-smooth snap-x snap-mandatory flex-1"
+              className="flex gap-3 sm:gap-5 -mx-[8%] px-[8%] sm:mx-0 sm:px-0 overflow-x-auto scrollbar-none scroll-smooth snap-x snap-mandatory flex-1 max-w-[1345px]"
             >
               {filteredProducts.map((product) => (
-                <div key={product.id} className="snap-start shrink-0 w-[72vw] sm:w-[45vw] md:w-[calc(33%-10px)] lg:w-[calc(25%-12px)] max-w-[280px]">
+                <div key={product.id} className="snap-start shrink-0 w-[68vw] sm:w-[45vw] md:w-[calc(25%-15px)] lg:w-[calc(20%-16px)] max-w-[253px]">
                   <ProductCard product={product} />
                 </div>
               ))}
@@ -124,7 +124,7 @@ export default function Home() {
             {/* Right Arrow */}
             <button
               onClick={() => scroll('right')}
-              className="shrink-0 w-10 h-10 bg-white border border-rose-100 rounded-full flex items-center justify-center text-primary shadow-md hover:bg-rose-50 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              className="hidden sm:flex shrink-0 w-10 h-10 bg-white border border-rose-100 rounded-full items-center justify-center text-primary shadow-md hover:bg-rose-50 hover:scale-105 active:scale-95 transition-all cursor-pointer"
               aria-label="Slide Right"
             >
               <ChevronRight className="w-5 h-5" />
@@ -148,7 +148,7 @@ export default function Home() {
       </section>
 
       {/* Subscribe & Save Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+      <section className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-12 mb-16">
         <div className="bg-gradient-to-r from-primary to-secondary text-white rounded-3xl p-6 md:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
           {/* Decorative gradients */}
           <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-white/5 blur-2xl -z-0"></div>
@@ -174,7 +174,7 @@ export default function Home() {
 
       {/* Why Choose Hana Care */}
       <section className="bg-gradient-to-b from-white to-[#FAF7F8] py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-12">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-outfit">Why Choose Hana Care?</h2>
             <p className="text-slate-500 mt-2 text-sm max-w-md mx-auto">Designed for comfort, validated for skin health safety.</p>
@@ -302,7 +302,7 @@ export default function Home() {
       </section>
 
       {/* From Our Blog */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-12 py-16">
         <div className="flex justify-between items-end mb-10">
           <div className="text-left">
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight font-outfit">From Our Blog</h2>

@@ -5,13 +5,13 @@ import { Phone, Mail, Clock } from 'lucide-react';
 export default function Footer() {
 
   return (
-    <footer className="bg-[#FAF6F7] border-t border-rose-100 pt-16 pb-8 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+    <footer className="bg-[#FAF6F7] border-t border-rose-100 pt-16 pb-8 px-4 sm:px-8 lg:px-12 font-sans">
+      <div className="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
         
         {/* Brand Column */}
         <div className="lg:col-span-2 flex flex-col gap-4">
-          <Link to="/" className="flex items-center overflow-hidden h-16 w-max">
-            <img src="/logo.png" alt="Hana Care Logo" className="h-40 object-contain mix-blend-multiply my-[-12px]" />
+          <Link to="/" className="flex items-center h-16 w-max">
+            <img src="/logo.png" alt="Hana Care Logo" className="h-12 object-contain" />
           </Link>
           <p className="text-slate-500 text-sm leading-relaxed max-w-sm">
             Hana Care is committed to providing premium, skin-friendly, and organic menstrual care products. Designed by women, for women, to ensure rash-free, leak-proof confidence every single day.

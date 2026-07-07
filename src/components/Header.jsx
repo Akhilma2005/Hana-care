@@ -43,11 +43,11 @@ export default function Header() {
 
       {/* Main Navbar */}
       <div className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-rose-100 shadow-sm transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+        <div className="max-w-8xl mx-auto px-4 sm:px-8 lg:px-12 py-3 flex justify-between items-center">
           
           {/* Logo */}
-          <Link to="/" className="flex items-center focus:outline-none overflow-hidden h-12 md:h-16">
-            <img src="/logo.png" alt="Hana Care Logo" className="h-32 md:h-40 object-contain mix-blend-multiply my-[-10px] md:my-[-12px]" />
+          <Link to="/" className="flex items-center focus:outline-none h-12 md:h-16">
+            <img src="/logo.png" alt="Hana Care Logo" className="h-9 md:h-12 object-contain" />
           </Link>
 
           {/* Search bar Desktop */}

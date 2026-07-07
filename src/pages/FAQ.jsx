@@ -67,7 +67,7 @@ export default function FAQ() {
 
         <div className="flex flex-col sm:flex-row gap-4 mt-2 w-full max-w-md justify-center">
           <a
-            href="https://wa.me/919876543210"
+            href="https://wa.me/918807579296"
             target="_blank"
             rel="noreferrer"
             className="flex items-center justify-center gap-2 py-3 px-6 text-xs font-bold text-white bg-emerald-500 hover:bg-emerald-600 rounded-xl shadow-sm transition-colors"
@@ -76,7 +76,7 @@ export default function FAQ() {
             WhatsApp Support
           </a>
           <a
-            href="mailto:support@hanacare.com"
+            href="mailto:hanacare2025@gmail.com"
             className="flex items-center justify-center gap-2 py-3 px-6 text-xs font-bold text-primary bg-white border border-rose-200 hover:bg-rose-50/30 rounded-xl shadow-sm transition-colors"
           >
             <Mail className="w-4 h-4" />

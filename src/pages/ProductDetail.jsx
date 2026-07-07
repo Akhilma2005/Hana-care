@@ -179,7 +179,11 @@ export default function ProductDetail() {
       ];
     }
     // fallback: original getThumbnails logic
-    return getThumbnails().map((t, i) => ({ type: i === 0 ? 'main' : 'thumb', ...t }));
+    return getThumbnails().map((t, i) => ({
+      type: i === 0 ? 'main' : 'thumb',
+      src: i === 0 ? product.image : undefined,
+      ...t
+    }));
   };
   const gallery = buildGallery();
 
@@ -763,7 +767,7 @@ export default function ProductDetail() {
                   <div className="animate-fade-in grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                     {[
                       { label: 'SKU / Product Code', value: product.sku },
-                      { label: 'Shelf Life / Expiry', value: product.shelfLife },
+                      { label: 'Shelf Life / Expiry', value: product.shelfLife || '3 years' },
                       { label: 'Weight', value: product.weight ? `${product.weight}g` : null },
                       { label: 'Dimensions', value: product.dimensions ? `${product.dimensions} cm` : null },
                       { label: 'Manufacturing Details', value: product.manufacturingDetails },

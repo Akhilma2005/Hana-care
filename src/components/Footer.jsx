@@ -1,19 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, Clock, Send } from 'lucide-react';
+import { Phone, Mail, Clock } from 'lucide-react';
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail('');
-      setTimeout(() => setSubscribed(false), 3000);
-    }
-  };
 
   return (
     <footer className="bg-[#FAF6F7] border-t border-rose-100 pt-16 pb-8 px-4 sm:px-6 lg:px-8 font-sans">
@@ -80,11 +69,11 @@ export default function Footer() {
           <ul className="flex flex-col gap-3.5 text-sm text-slate-500">
             <li className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-primary shrink-0" />
-              <span>+91 98765 43210</span>
+              <span>+91 88075 79296</span>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-primary shrink-0" />
-              <span className="break-all">support@hanacare.com</span>
+              <span className="break-all">hanacare2025@gmail.com</span>
             </li>
             <li className="flex items-start gap-2">
               <Clock className="w-4 h-4 text-primary shrink-0 mt-0.5" />
@@ -94,34 +83,10 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Newsletter signup & bottom border */}
-      <div className="max-w-7xl mx-auto border-t border-rose-100 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-        {/* Newsletter Box */}
-        <div className="w-full md:max-w-md flex flex-col gap-1 text-center md:text-left">
-          <h4 className="font-outfit font-semibold text-slate-800 text-base">Subscribe to our Newsletter</h4>
-          <p className="text-slate-400 text-xs">Stay updated on special deals, subscription offers, and girls' health tips.</p>
-        </div>
-        <form onSubmit={handleSubscribe} className="w-full md:max-w-md flex gap-2">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="flex-1 px-4 py-2 text-sm rounded-full border border-rose-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-white placeholder-slate-400 transition-all"
-          />
-          <button
-            type="submit"
-            className="px-5 py-2 text-sm text-white font-medium bg-primary rounded-full hover:bg-primary-hover flex items-center gap-1.5 transition-all shadow-md active:scale-95 shrink-0"
-          >
-            {subscribed ? "Subscribed!" : "Subscribe"}
-            <Send className="w-3.5 h-3.5" />
-          </button>
-        </form>
-      </div>
-
-      <div className="max-w-7xl mx-auto text-center mt-12 text-slate-400 text-xs">
-        <p>&copy; {new Date().getFullYear()} Hana Care. All Rights Reserved. Crafted for premium hygiene and ultimate comfort.</p>
+      <div className="max-w-7xl mx-auto border-t border-rose-100 mt-12 pt-8 text-center text-slate-400 text-xs flex flex-col gap-1.5">
+        <p>&copy; {new Date().getFullYear()} JENISHADIPSON PRIVATE LIMITED. All Rights Reserved.</p>
+        <p className="opacity-80 font-medium">Registered Office: 7/42G, Varuthanvilai, Reethapuram, Kanyakumari - 629 159, Tamil Nadu | GSTIN: 33AAGCJ9359J1Z3</p>
+        <p className="opacity-70">Hana Care is a registered brand of JENISHADIPSON PRIVATE LIMITED. Crafted for premium hygiene and ultimate comfort.</p>
       </div>
     </footer>
   );

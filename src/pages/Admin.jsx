@@ -117,7 +117,7 @@ export default function Admin() {
   const handleLogout = () => { sessionStorage.removeItem('admin_authed'); setAuthed(false); };
   const [activeSection, setActiveSection] = useState('overview');
 
-  const blankForm = { id: null, name: '', shortName: '', category: 'Sanitary Pads', price: '', originalPrice: '', stock: '', size: '', absorbency: 'Medium', absorbencyLabel: 'Medium Flow', droplets: '3', badge: 'New', description: '', benefits: '', features: '', material: '', fragrance: 'Unscented', howToUse: '', disposalInstructions: '', ingredients: '', sku: '', shelfLife: '', weight: '', dimensions: '', manufacturingDetails: '', image: '', images: [], videos: [] };
+  const blankForm = { id: null, name: '', shortName: '', category: 'Sanitary Pads', price: '', originalPrice: '', stock: '', size: '', absorbency: 'Medium', absorbencyLabel: 'Medium Flow', droplets: '3', badge: 'New', description: '', benefits: '', features: '', material: '', fragrance: 'Unscented', howToUse: '', disposalInstructions: '', ingredients: '', sku: '', shelfLife: '3 years', weight: '', dimensions: '', manufacturingDetails: '', image: '', images: [], videos: [] };
   const [productForm, setProductForm] = useState(blankForm);
   const mainImgRef = useRef();
   const galleryImgRef = useRef();

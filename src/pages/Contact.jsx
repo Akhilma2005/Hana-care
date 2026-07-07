@@ -47,7 +47,7 @@ export default function Contact() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] uppercase font-bold text-slate-400">Call Us</span>
-                  <span className="text-sm font-bold text-slate-700 mt-0.5">+91 98765 43210</span>
+                  <span className="text-sm font-bold text-slate-700 mt-0.5">+91 88075 79296</span>
                 </div>
               </div>
 
@@ -58,7 +58,7 @@ export default function Contact() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] uppercase font-bold text-slate-400">Email Support</span>
-                  <span className="text-sm font-bold text-slate-700 mt-0.5 break-all">support@hanacare.com</span>
+                  <span className="text-sm font-bold text-slate-700 mt-0.5 break-all">hanacare2025@gmail.com</span>
                 </div>
               </div>
 
@@ -69,7 +69,9 @@ export default function Contact() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] uppercase font-bold text-slate-400">Our Office</span>
-                  <span className="text-sm font-bold text-slate-700 mt-0.5">102, Innovation Hub, Outer Ring Road, Bengaluru, 560103</span>
+                  <span className="text-sm font-bold text-slate-700 mt-0.5">JENISHADIPSON PRIVATE LIMITED</span>
+                  <span className="text-xs text-slate-500 mt-0.5 leading-relaxed">7/42G, Varuthanvilai, Reethapuram, Kanyakumari - 629 159, Tamil Nadu</span>
+                  <span className="text-[10px] uppercase font-extrabold text-primary tracking-wider mt-1.5">GSTIN: 33AAGCJ9359J1Z3</span>
                 </div>
               </div>
 

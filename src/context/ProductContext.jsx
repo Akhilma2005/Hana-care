@@ -178,7 +178,7 @@ export function ProductProvider({ children }) {
       material: p.material || '',
       fragrance: p.fragrance || 'Unscented',
       sku: p.sku || '',
-      shelfLife: p.shelfLife || '',
+      shelfLife: p.shelfLife || '3 years',
       weight: p.weight || '',
       dimensions: p.dimensions || '',
       manufacturingDetails: p.manufacturingDetails || '',

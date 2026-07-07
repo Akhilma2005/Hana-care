@@ -9,7 +9,7 @@ export default {
       colors: {
         primary: {
           light: '#FCEEF2',
-          DEFAULT: '#D4376F', // Haana Care Pink
+          DEFAULT: '#D4376F', // Hana Care Pink
           dark: '#B02555',
           hover: '#C22D60',
         },

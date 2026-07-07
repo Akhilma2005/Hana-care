@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary-light: #FCEEF2;
+  --color-primary: #D4376F;
+  --color-primary-dark: #B02555;
+  --color-primary-hover: #C22D60;
+  
+  --color-secondary-light: #F3EEF6;
+  --color-secondary: #7C5D9F;
+  --color-secondary-dark: #5D3F75;
+  
+  --color-accent-pink: #FDEEF2;
+  --color-accent-purple: #F5F0F8;
+  --color-accent-yellow: #FFFBEA;
+  
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+  --font-brand: "Playfair Display", serif;
+}
+
+@utility glassmorphism {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@utility glassmorphism-pink {
+  background: rgba(252, 238, 242, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 55, 111, 0.1);
+}
+
+@utility glassmorphism-purple {
+  background: rgba(243, 238, 246, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(124, 93, 159, 0.1);
+}
+
+@layer base {
+  body {
+    @apply bg-[#FFFDFE] text-slate-800 font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-outfit font-semibold text-slate-900;
+  }
+}
+
+/* Custom scrollbar utility */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(212, 55, 111, 0.2);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 55, 111, 0.4);
+}

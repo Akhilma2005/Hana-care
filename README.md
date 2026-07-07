@@ -1,6 +1,10 @@
 # Hana Care | Premium Organic Menstrual Care
 
+[![Live Website](https://img.shields.io/badge/Live%20Website-hana--care--seven.vercel.app-pink?style=for-the-badge&logo=vercel)](https://hana-care-seven.vercel.app)
+
 An ultra-premium, interactive e-commerce web application for **Hana Care** (a brand of **JENISHADIPSON PRIVATE LIMITED**), built using **React**, **Tailwind CSS (v4)**, and **React Router**.
+
+* **Live URL:** [https://hana-care-seven.vercel.app](https://hana-care-seven.vercel.app)
 
 ---
 

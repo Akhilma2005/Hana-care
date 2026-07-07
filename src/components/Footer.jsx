@@ -83,10 +83,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto border-t border-rose-100 mt-12 pt-8 text-center text-slate-400 text-xs flex flex-col gap-1.5">
+      <div className="max-w-7xl mx-auto border-t border-rose-100 mt-12 pt-8 text-center text-slate-400 text-xs">
         <p>&copy; {new Date().getFullYear()} JENISHADIPSON PRIVATE LIMITED. All Rights Reserved.</p>
-        <p className="opacity-80 font-medium">Registered Office: 7/42G, Varuthanvilai, Reethapuram, Kanyakumari - 629 159, Tamil Nadu | GSTIN: 33AAGCJ9359J1Z3</p>
-        <p className="opacity-70">Hana Care is a registered brand of JENISHADIPSON PRIVATE LIMITED. Crafted for premium hygiene and ultimate comfort.</p>
       </div>
     </footer>
   );

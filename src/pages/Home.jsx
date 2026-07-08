@@ -115,7 +115,7 @@ export default function Home() {
               className="flex gap-3 sm:gap-5 -mx-[8%] px-[8%] sm:mx-0 sm:px-0 overflow-x-auto scrollbar-none scroll-smooth snap-x snap-mandatory flex-1 max-w-[1345px]"
             >
               {filteredProducts.map((product) => (
-                <div key={product.id} className="snap-start shrink-0 w-[68vw] sm:w-[45vw] md:w-[calc(25%-15px)] lg:w-[calc(20%-16px)] max-w-[253px]">
+                <div key={product.id} className="snap-start shrink-0 w-[68vw] sm:w-[45vw] md:w-[calc(25%-15px)] lg:w-[calc(20%-16px)] max-w-[253px] pb-16">
                   <ProductCard product={product} />
                 </div>
               ))}
